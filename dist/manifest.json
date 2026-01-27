@@ -1,0 +1,18 @@
+{
+  "name": "ChatX",
+  "short_name": "ChatX",
+  "description": "Secure, real-time messaging app",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF8F5",
+  "theme_color": "#1a1a1a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/chatx-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
