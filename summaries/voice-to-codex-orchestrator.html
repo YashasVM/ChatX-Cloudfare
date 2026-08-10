@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Voice-to-Codex Orchestrator — Conversation Summary</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b0d10;--panel:#12161b;--text:#edf2f7;--muted:#9aa6b2;--line:#27303a;--accent:#7dd3fc;--good:#86efac}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .wrap{max-width:980px;margin:0 auto;padding:48px 22px 80px}header{padding:26px 0 28px;border-bottom:1px solid var(--line);margin-bottom:28px}h1{font-size:clamp(32px,6vw,56px);line-height:1.02;margin:0 0 14px;letter-spacing:-.04em}h2{font-size:22px;margin:34px 0 12px;letter-spacing:-.02em}p{margin:8px 0;color:#d8e0e8}.lede{font-size:18px;color:var(--muted);max-width:760px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}.card strong{display:block;margin-bottom:6px}ul{margin:8px 0 0 20px;padding:0}li{margin:5px 0;color:#d8e0e8}code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#0e1217;border:1px solid var(--line);padding:2px 6px;border-radius:6px}.tag{display:inline-block;padding:4px 9px;margin:4px 5px 0 0;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px}.priority{border-left:3px solid var(--accent)}.good{color:var(--good)}footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <div class="tag">Project brief</div><div class="tag">Voice control</div><div class="tag">Codex orchestration</div>
+    <h1>Voice-to-Codex Orchestrator</h1>
+    <p class="lede">A clean summary of the conversation and surrounding context that led to the reminder to build a voice-driven orchestrator for Codex-style coding agents.</p>
+  </header>
+  <section class="grid">
+    <article class="card priority"><strong>Core idea</strong><p>Speak naturally to an assistant, have it understand the request, turn that request into a coding task, and route it to the right Codex workflow without manually typing commands.</p></article>
+    <article class="card"><strong>Why this matters</strong><p>The goal is to remove friction between having an idea and making a coding agent act on it — especially when away from the keyboard or using a phone.</p></article>
+    <article class="card"><strong>Current stage</strong><p>Concept / planning stage. A reminder was created specifically to come back and build it later.</p></article>
+  </section>
+  <h2>What the user actually wants</h2>
+  <ul><li>A voice-first interface, closer to a personal assistant than a traditional CLI.</li><li>The ability to say a task in plain English and have the system decide what coding action should happen.</li><li>Codex or Codex-like agents to do the actual coding work.</li><li>Automation around launching jobs, choosing workflows, and reducing repetitive setup.</li><li>A system simple enough to use conversationally instead of learning lots of tooling and command syntax.</li></ul>
+  <h2>Useful design direction</h2>
+  <div class="grid">
+    <article class="card"><strong>1. Voice input</strong><p>Capture speech and transcribe it into text. Keep the transcription layer replaceable so local Whisper, a cloud STT service, or a live voice API can be swapped later.</p></article>
+    <article class="card"><strong>2. Intent layer</strong><p>Convert the spoken request into a structured task such as “inspect repo”, “fix bug”, “add feature”, “run tests”, “explain code”, or “open a new work thread”.</p></article>
+    <article class="card"><strong>3. Orchestrator</strong><p>Choose the model, reasoning level, repository, permissions, and whether the job is small enough for one agent or large enough to split into multiple tasks.</p></article>
+    <article class="card"><strong>4. Codex execution</strong><p>Launch the coding job, stream back progress, capture failures, and expose useful controls such as stop, retry, approve, or continue.</p></article>
+    <article class="card"><strong>5. Voice feedback</strong><p>Read out only high-value updates: what it understood, when it needs approval, what failed, and what was completed. Avoid narrating every token or terminal line.</p></article>
+    <article class="card"><strong>6. History</strong><p>Keep each request and its resulting coding run in a clean thread so the user can resume work later from phone or desktop.</p></article>
+  </div>
+  <h2>Suggested first version</h2>
+  <p>Do not start with a huge “Jarvis” system. Build one tight loop first:</p>
+  <ul><li>Press one button or use one wake action.</li><li>Say: <code>Open my project and fix the login bug</code>.</li><li>Transcribe the request.</li><li>Ask the orchestrator to convert it into a Codex task.</li><li>Launch Codex in the selected repository.</li><li>Stream back a short status summary.</li><li>Speak the final result and show the full logs in the app.</li></ul>
+  <h2>UX principles from the broader conversation</h2>
+  <ul><li><strong>Plain English first.</strong> Keep the interface understandable without requiring command syntax.</li><li><strong>One place for progress.</strong> Summarize background jobs in one clean interface instead of many windows.</li><li><strong>Minimal UI.</strong> Favor a clean, modern, dark interface with restrained accents.</li><li><strong>Agent autonomy.</strong> Let long-running agents work with less babysitting while retaining checkpoints and control.</li><li><strong>Multiple threads when useful.</strong> For larger jobs, use parallel work streams instead of one giant opaque task.</li></ul>
+  <h2>Potential commands</h2>
+  <div class="card"><p><code>“Open OpenStream and fix the audio drift bug.”</code></p><p><code>“Check my repo and tell me why the build is failing.”</code></p><p><code>“Create three coding threads: backend, Android app, and UI.”</code></p><p><code>“Use a cheaper model for the simple tasks and a stronger model for architecture.”</code></p><p><code>“Stop that job.”</code></p><p><code>“Continue the work from yesterday.”</code></p></div>
+  <h2>What to automate later</h2>
+  <ul><li>Automatic repo/project selection from spoken project names.</li><li>Model routing based on task difficulty and cost.</li><li>Automatic context collection from GitHub issues, open PRs, README files, and recent changes.</li><li>Safe command approval rules for destructive actions.</li><li>Notifications when a long-running job finishes or needs human input.</li><li>Phone-to-PC handoff so a task can be started by voice remotely and executed on a development machine.</li></ul>
+  <h2>Best immediate build target</h2>
+  <div class="card priority"><strong class="good">MVP</strong><p>A tiny local app with a microphone button, speech-to-text, a single “send to Codex” orchestrator, live status, and a final spoken summary. Once that loop feels good, add remote access, multiple agents, GitHub context, and automatic model routing.</p></div>
+  <footer>Generated from the conversation context on 10 August 2026. This summary intentionally focuses on reusable project information rather than reproducing the entire chat transcript.</footer>
+</main>
+</body>
+</html>
